@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rule;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
@@ -26,14 +27,7 @@ class AuthController extends Controller
     // login
     public function login(LoginRequest $request): \Illuminate\Http\JsonResponse
     {
-        $request->validate([
-            "username" => "required|string",
-            "password" => "required|string"
-        ]);
-
-        $user = User::where('email', $request->input('username'))
-                ->orWhere('email', $request->input('username'))
-                ->first();
+        $user = User::where('email', $request->input('email'))->first();
 
         if ($user &&
             Hash::check($request->input('password'), $user->password)) {
@@ -44,32 +38,31 @@ class AuthController extends Controller
                 "token_type" => "Bearer"
             ], Response::HTTP_OK);
         }
-        return response()->json(["message" => "invalid credentials!"], Response::HTTP_UNAUTHORIZED);
+        return response()->json(["message" => "invalid credentials!"], Response::HTTP_BAD_REQUEST);
     }
 
     // update
-    public function update(Request $request): \Illuminate\Http\JsonResponse
+    public function update(UserUpdateRequest $request): \Illuminate\Http\JsonResponse
     {
         $request->user()->update([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
         ]);
-    return response()->json(["message" => "user account updated"]);
+
+        return response()->json(["message" => "user account updated", 'user' => $request->user()], Response::HTTP_OK);
     }
 
     // change password
-    public function password_change(Request $request): \Illuminate\Http\JsonResponse
+    public function password_change(ChangePasswordRequest $request): \Illuminate\Http\JsonResponse
     {
-        $request->validate([
-            'current_password' => ['required'],
-            'new_password' => ['required']
-        ]);
         $user = $request->user();
         if (Hash::check($request->input('current_password'), $user->password)) {
-            $user->update(['password' => Hash::make($request->input('new_password'))]);
-            return response()->json(["message" => "password changed"], 200);
+            $user->update([
+                'password' => Hash::make($request->input('new_password'))
+            ]);
+            return response()->json(["message" => "password changed"], Response::HTTP_OK);
         }
-        return response()->json(["message" => "current password is incorrect"], 428);
+        return response()->json(["message" => "current password is incorrect"], Response::HTTP_BAD_REQUEST);
     }
 
     // Logout
