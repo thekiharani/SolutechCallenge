@@ -17,12 +17,12 @@ class OrderResource extends JsonResource
         return [
             'id' => $this->id,
             'order_number' => $this->order_number,
-            'products' => $this->when(
-                $this->products()->count(),
+            /*'products' => $this->when(
+                $this->products()->exists(),
                 ProductResource::collection($this->products)->except(['orders'])
-            ),
+            ),*/
             'date_created' => $this->created_at->format('jS F, Y | g:i A'),
-            'last_updated' => $this->updted_at->diffForHumans(),
+            'last_updated' => $this->updated_at->diffForHumans(),
         ];
     }
 }

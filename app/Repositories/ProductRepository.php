@@ -33,7 +33,7 @@ class ProductRepository
             return $product;
         } catch (\Throwable $e) {
             DB::rollBack();
-            return 'error';
+            return 'error :' . $e->getMessage();
         }
     }
 
@@ -46,7 +46,7 @@ class ProductRepository
     {
         DB::beginTransaction();
         try {
-            $product->upadte([
+            $product->update([
                 'name' => $attributes['name'],
                 'quantity' => $attributes['quantity'],
                 'description' => $attributes['description']
@@ -55,7 +55,7 @@ class ProductRepository
             return $product;
         } catch (\Throwable $e) {
             DB::rollBack();
-            return 'error';
+            return 'error :' . $e->getMessage();
         }
     }
 }

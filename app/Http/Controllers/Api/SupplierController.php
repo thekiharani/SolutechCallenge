@@ -95,4 +95,13 @@ class SupplierController extends Controller
         $supplier->delete();
         return response()->json(['message' => 'supplier trashed'], Response::HTTP_OK);
     }
+
+    /**
+     * @param $supplier_id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function restore($supplier_id) {
+        Supplier::withTrashed()->find($supplier_id)->restore();
+;        return response()->json(['message' => 'supplier restored'], Response::HTTP_OK);
+    }
 }

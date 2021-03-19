@@ -37,7 +37,7 @@ class OrderRepository
             return $order;
         } catch (\Throwable $e) {
             DB::rollBack();
-            return 'error';
+            return 'error :' . $e->getMessage();
         }
     }
 
@@ -63,7 +63,7 @@ class OrderRepository
             return $order;
         } catch (\Throwable $e) {
             DB::rollBack();
-            return 'error';
+            return 'error :' . $e->getMessage();
         }
     }
 }

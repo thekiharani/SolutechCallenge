@@ -18,7 +18,15 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     // Resourceful routes
     Route::apiResource('products', ProductController::class);
+    Route::patch('products/{product}/restore', [ProductController::class, 'restore'])
+        ->name('products.restore');
+
     Route::apiResource('orders', OrderController::class);
+    Route::patch('orders/{product}/restore', [OrderController::class, 'restore'])
+        ->name('orders.restore');
+
     Route::apiResource('suppliers', SupplierController::class);
+    Route::patch('suppliers/{product}/restore', [SupplierController::class, 'restore'])
+        ->name('suppliers.restore');
 });
 

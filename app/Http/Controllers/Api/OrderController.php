@@ -96,4 +96,13 @@ class OrderController extends Controller
         $order->delete();
         return response()->json(['message' => 'order trashed'], Response::HTTP_OK);
     }
+
+    /**
+     * @param $order_id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function restore($order_id) {
+        Order::withTrashed()->find($order_id)->restore();
+;        return response()->json(['message' => 'order restored'], Response::HTTP_OK);
+    }
 }

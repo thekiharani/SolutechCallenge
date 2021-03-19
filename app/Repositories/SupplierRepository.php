@@ -37,7 +37,7 @@ class SupplierRepository
             return $supplier;
         } catch (\Throwable $e) {
             DB::rollBack();
-            return 'error';
+            return 'error :' . $e->getMessage();
         }
     }
 
@@ -50,13 +50,13 @@ class SupplierRepository
     {
         DB::beginTransaction();
         try {
-            $supplier->upadte([
+            $supplier->update([
                 'name' => $attributes['name'],
             ]);
 
             // Update supplier products
             if (Arr::exists($attributes, 'products')) {
-                $supplierProducts = $supplier->products()->pluck('id')->toArray();
+                $supplierProducts = $supplier->products()->pluck('products.id')->toArray();
                 $productsAttrs = $attributes['products'];
                 $detachproducts = array_diff($supplierProducts, $productsAttrs);
                 $attachproducts = array_diff($productsAttrs, $supplierProducts);
@@ -67,7 +67,7 @@ class SupplierRepository
             return $supplier;
         } catch (\Throwable $e) {
             DB::rollBack();
-            return 'error';
+            return 'error :' . $e->getMessage();
         }
     }
 }

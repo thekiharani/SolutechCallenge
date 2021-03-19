@@ -48,10 +48,10 @@ class ProductController extends Controller
             'name', 'quantity', 'description'
         ]));
 
-        if ($product == 'error') {
-            return response()->json(['error' => 'error in creating product'], Response::HTTP_BAD_REQUEST);
+        if ($product instanceof Product) {
+            return response()->json(['message' => 'created', 'product' => $product], Response::HTTP_CREATED);
         }
-        return response()->json(['message' => 'created', 'product' => $product], Response::HTTP_CREATED);
+        return response()->json(['error' => $product], Response::HTTP_BAD_REQUEST);
     }
 
     /**
@@ -78,10 +78,10 @@ class ProductController extends Controller
             'name', 'quantity', 'description'
         ]));
 
-        if ($product == 'error') {
-            return response()->json(['error' => 'error in updating product'], Response::HTTP_BAD_REQUEST);
+        if ($product instanceof Product) {
+            return response()->json(['message' => 'updated', 'product' => $product], Response::HTTP_OK);
         }
-        return response()->json(['message' => 'updated', 'product' => $product], Response::HTTP_OK);
+        return response()->json(['error' => $product], Response::HTTP_BAD_REQUEST);
     }
 
     /**
@@ -95,5 +95,14 @@ class ProductController extends Controller
     {
         $product->delete();
         return response()->json(['message' => 'product trashed'], Response::HTTP_OK);
+    }
+
+    /**
+     * @param $product_id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function restore($product_id) {
+        Product::withTrashed()->find($product_id)->restore();
+;        return response()->json(['message' => 'product restored'], Response::HTTP_OK);
     }
 }
