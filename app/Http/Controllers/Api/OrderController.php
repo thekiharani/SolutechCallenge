@@ -45,13 +45,12 @@ class OrderController extends Controller
     public function store(OrderRequest $request)
     {
         $order = $this->repository->store($request->only([
-            'order_id', 'products',
+            'products',
         ]));
-
-        if ($order == 'error') {
-            return response()->json(['error' => 'error in creating order'], Response::HTTP_BAD_REQUEST);
+        if ($order instanceof Order) {
+            return response()->json(['message' => 'created', 'order' => $order], Response::HTTP_CREATED);
         }
-        return response()->json(['message' => 'created', 'order' => $order], Response::HTTP_CREATED);
+        return response()->json(['error' => $order], Response::HTTP_BAD_REQUEST);
     }
 
     /**
@@ -75,13 +74,13 @@ class OrderController extends Controller
     public function update(OrderRequest $request, Order $order)
     {
         $order = $this->repository->update($order, $request->only([
-            'order_id', 'products',
+            'products',
         ]));
 
-        if ($order == 'error') {
-            return response()->json(['error' => 'error in updating order'], Response::HTTP_BAD_REQUEST);
+        if ($order instanceof Order) {
+            return response()->json(['message' => 'updated', 'order' => $order], Response::HTTP_OK);
         }
-        return response()->json(['message' => 'updated', 'order' => $order], Response::HTTP_OK);
+        return response()->json(['error' => $order], Response::HTTP_BAD_REQUEST);
     }
 
     /**

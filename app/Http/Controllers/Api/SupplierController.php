@@ -47,10 +47,10 @@ class SupplierController extends Controller
             'name', 'products',
         ]));
 
-        if ($supplier == 'error') {
-            return response()->json(['error' => 'error in creating supplier'], Response::HTTP_BAD_REQUEST);
+        if ($supplier instanceof Supplier) {
+            return response()->json(['message' => 'created', 'supplier' => $supplier], Response::HTTP_CREATED);
         }
-        return response()->json(['message' => 'created', 'supplier' => $supplier], Response::HTTP_CREATED);
+        return response()->json(['error' => $supplier], Response::HTTP_BAD_REQUEST);
     }
 
     /**
@@ -77,10 +77,10 @@ class SupplierController extends Controller
             'name', 'products',
         ]));
 
-        if ($supplier == 'error') {
-            return response()->json(['error' => 'error in updating supplier'], Response::HTTP_BAD_REQUEST);
+        if ($supplier instanceof Supplier) {
+            return response()->json(['message' => 'updated', 'supplier' => $supplier], Response::HTTP_OK);
         }
-        return response()->json(['message' => 'updated', 'supplier' => $supplier], Response::HTTP_OK);
+        return response()->json(['error' => $supplier], Response::HTTP_BAD_REQUEST);
     }
 
     /**

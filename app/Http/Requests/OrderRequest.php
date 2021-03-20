@@ -24,7 +24,7 @@ class OrderRequest extends FormRequest
     public function attributes()
     {
         return [
-            'order_number' => 'order number',
+            // 'products' => 'order number',
         ];
     }
 
@@ -37,7 +37,7 @@ class OrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'order_number' => ['required', 'string'],
+            // 'order_number' => ['required', 'string'],
         ];
     }
 

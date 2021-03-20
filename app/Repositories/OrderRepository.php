@@ -7,6 +7,7 @@ namespace App\Repositories;
 use App\Models\Order;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class OrderRepository
 {
@@ -26,7 +27,12 @@ class OrderRepository
         DB::beginTransaction();
         try {
             $order = Order ::create([
-                'order_number' => $attributes['order_number'],
+                'order_number' => 'NA'
+            ]);
+            // Auto update order number
+            $order_number = 'ORD-' . Str::padLeft($order->id, 4, '0');
+            $order->update([
+                'order_number' => $order_number
             ]);
 
             // Associate order with products if any
@@ -52,7 +58,7 @@ class OrderRepository
         try {
             // Update order products
             if (Arr::exists($attributes, 'products')) {
-                $orderProducts = $order->products()->pluck('id')->toArray();
+                $orderProducts = $order->products()->pluck('products.id')->toArray();
                 $productsAttrs = $attributes['products'];
                 $detachproducts = array_diff($orderProducts, $productsAttrs);
                 $attachproducts = array_diff($productsAttrs, $orderProducts);

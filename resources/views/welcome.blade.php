@@ -1,7 +1,7 @@
 <x-app-layout>
 
 <div class="container">
-    <example-component />
+    <app></app>
 </div>
 
 </x-app-layout>

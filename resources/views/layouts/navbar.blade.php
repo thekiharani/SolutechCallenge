@@ -10,7 +10,19 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
+                 @auth
+                    <li class="nav-item">
+                        <router-link class="nav-link"  to="products">{{ __('Products') }}</router-link>
+                    </li>
 
+                     <li class="nav-item">
+                        <router-link class="nav-link"  to="orders">{{ __('Orders') }}</router-link>
+                    </li>
+
+                    <li class="nav-item">
+                        <router-link class="nav-link"  to="suppliers">{{ __('Suppliers') }}</router-link>
+                    </li>
+                @endauth
             </ul>
 
             <!-- Right Side Of Navbar -->
