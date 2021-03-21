@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SupplierRequest;
-use App\Http\Resources\SupplierResource;
+use App\Http\Resources\SupplierListResource;
+use App\Http\Resources\SupplierShowResource;
 use App\Models\Supplier;
 use App\Repositories\SupplierRepository;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,7 +32,7 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        $suppliers = SupplierResource::collection($this->repository->list());
+        $suppliers = SupplierListResource::collection($this->repository->list());
         return response()->json(['suppliers' => $suppliers], Response::HTTP_OK);
     }
 
@@ -48,7 +49,7 @@ class SupplierController extends Controller
         ]));
 
         if ($supplier instanceof Supplier) {
-            return response()->json(['message' => 'created', 'supplier' => $supplier], Response::HTTP_CREATED);
+            return response()->json(['message' => 'created', 'supplier' => new SupplierShowResource($supplier)], Response::HTTP_CREATED);
         }
         return response()->json(['error' => $supplier], Response::HTTP_BAD_REQUEST);
     }
@@ -61,7 +62,7 @@ class SupplierController extends Controller
      */
     public function show(Supplier $supplier)
     {
-        return response()->json(['supplier' => new SupplierResource($supplier)], Response::HTTP_OK);
+        return response()->json(['supplier' => new SupplierShowResource($supplier)], Response::HTTP_OK);
     }
 
     /**
@@ -78,7 +79,7 @@ class SupplierController extends Controller
         ]));
 
         if ($supplier instanceof Supplier) {
-            return response()->json(['message' => 'updated', 'supplier' => $supplier], Response::HTTP_OK);
+            return response()->json(['message' => 'updated', 'supplier' => new SupplierShowResource($supplier)], Response::HTTP_OK);
         }
         return response()->json(['error' => $supplier], Response::HTTP_BAD_REQUEST);
     }

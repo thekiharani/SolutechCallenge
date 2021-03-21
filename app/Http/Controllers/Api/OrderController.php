@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OrderRequest;
-use App\Http\Resources\OrderResource;
+use App\Http\Resources\OrderListResource;
+use App\Http\Resources\OrderShowResource;
 use App\Models\Order;
 use App\Repositories\OrderRepository;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,7 +33,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = OrderResource::collection($this->repository->list());
+        $orders = OrderListResource::collection($this->repository->list());
         return response()->json(['orders' => $orders], Response::HTTP_OK);
     }
 
@@ -48,7 +49,7 @@ class OrderController extends Controller
             'products',
         ]));
         if ($order instanceof Order) {
-            return response()->json(['message' => 'created', 'order' => $order], Response::HTTP_CREATED);
+            return response()->json(['message' => 'created', 'order' => new OrderShowResource($order)], Response::HTTP_CREATED);
         }
         return response()->json(['error' => $order], Response::HTTP_BAD_REQUEST);
     }
@@ -61,7 +62,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        return response()->json(['order' => new OrderResource($order)], Response::HTTP_OK);
+        return response()->json(['order' => new OrderShowResource($order)], Response::HTTP_OK);
     }
 
     /**
@@ -78,7 +79,7 @@ class OrderController extends Controller
         ]));
 
         if ($order instanceof Order) {
-            return response()->json(['message' => 'updated', 'order' => $order], Response::HTTP_OK);
+            return response()->json(['message' => 'updated', 'order' => new OrderShowResource($order)], Response::HTTP_OK);
         }
         return response()->json(['error' => $order], Response::HTTP_BAD_REQUEST);
     }

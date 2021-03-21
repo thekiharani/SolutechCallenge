@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
-use App\Http\Resources\ProductResource;
+use App\Http\Resources\ProductListResource;
+use App\Http\Resources\ProductShowResource;
 use App\Models\Product;
 use App\Repositories\ProductRepository;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,7 +33,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = ProductResource::collection($this->repository->list());
+        $products = ProductListResource::collection($this->repository->list());
         return response()->json(['products' => $products], Response::HTTP_OK);
     }
 
@@ -49,7 +50,7 @@ class ProductController extends Controller
         ]));
 
         if ($product instanceof Product) {
-            return response()->json(['message' => 'created', 'product' => $product], Response::HTTP_CREATED);
+            return response()->json(['message' => 'created', 'product' => new ProductShowResource($product)], Response::HTTP_CREATED);
         }
         return response()->json(['error' => $product], Response::HTTP_BAD_REQUEST);
     }
@@ -62,7 +63,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return response()->json(['product' => new ProductResource($product)], Response::HTTP_OK);
+        return response()->json(['product' => new ProductShowResource($product)], Response::HTTP_OK);
     }
 
     /**
@@ -79,7 +80,7 @@ class ProductController extends Controller
         ]));
 
         if ($product instanceof Product) {
-            return response()->json(['message' => 'updated', 'product' => $product], Response::HTTP_OK);
+            return response()->json(['message' => 'updated', 'product' => new ProductShowResource($product)], Response::HTTP_OK);
         }
         return response()->json(['error' => $product], Response::HTTP_BAD_REQUEST);
     }

@@ -13,7 +13,7 @@ class ProductRepository
      * @return mixed
      */
     public function list() {
-        return Product::paginate(20);
+        return Product::with(['orders', 'suppliers'])->paginate(20);
     }
 
     /**
