@@ -15,7 +15,7 @@ class OrderRepository
      * @return mixed
      */
     public function list() {
-        return Order::paginate(20);
+        return Order::withTrashed()->paginate(20);
     }
 
     /**

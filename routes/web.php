@@ -11,4 +11,6 @@ Route::get('test', function () {
     dd(array_diff($arr1, $arr2), array_diff($arr2, $arr1));
 });
 
-Route::get('/{any}', HomeController::class)->where('any', '.*');
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/{any}', HomeController::class)->where('any', '.*');
+});

@@ -14,7 +14,7 @@ class SupplierRepository
      * @return mixed
      */
     public function list() {
-        return Supplier::paginate(20);
+        return Supplier::withTrashed()->paginate(20);
     }
 
     /**

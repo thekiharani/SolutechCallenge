@@ -17,9 +17,11 @@ class OrderShowResource extends JsonResource
         return [
             'id' => $this->id,
             'order_number' => $this->order_number,
+            'orderProducts' => $this->products()->count(),
             'products' => $this->when($this->products()->exists(), ProductListResource::collection($this->products)),
-            'date_created' => $this->created_at->format('jS F, Y | g:i A'),
-            'last_updated' => $this->updated_at->diffForHumans(),
+            'productIDs' => $this->products()->pluck('products.id'),
+            'date_created' => medium_date($this->created_at),
+            'last_updated' => time_diff($this->updated_at),
         ];
     }
 }

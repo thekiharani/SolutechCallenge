@@ -19,8 +19,9 @@ class ProductListResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'quantity' => $this->quantity,
-            'date_created' => $this->created_at->format('jS F, Y | g:i A'),
-            'last_updated' => $this->updated_at->diffForHumans(),
+            'date_created' => medium_date($this->created_at),
+            'last_updated' => time_diff($this->updated_at),
+            'trashed' => $this->deleted_at
         ];
     }
 }

@@ -19,10 +19,12 @@ class ProductShowResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'quantity' => $this->quantity,
+            'listedSuppliers' => $this->suppliers()->count(),
+            'placedOrders' => $this->orders()->count(),
             'orders' => $this->when($this->orders()->exists(), OrderListResource::collection($this->orders)),
             'suppliers' => $this->when($this->suppliers()->exists(), SupplierListResource::collection($this->suppliers)),
-            'date_created' => $this->created_at->format('jS F, Y | g:i A'),
-            'last_updated' => $this->updated_at->diffForHumans(),
+            'date_created' => medium_date($this->created_at),
+            'last_updated' => time_diff($this->updated_at),
         ];
     }
 }

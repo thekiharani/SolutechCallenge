@@ -10,6 +10,7 @@
         "production": "mix --production"
     },
     "devDependencies": {
+        "@fortawesome/fontawesome-free": "^5.15.3",
         "axios": "^0.21",
         "bootstrap": "^4.0.0",
         "jquery": "^3.2",
@@ -23,6 +24,8 @@
         "vue": "^2.5.17",
         "vue-loader": "^15.9.6",
         "vue-router": "^3.5.1",
-        "vue-template-compiler": "^2.6.10"
+        "vue-sweetalert2": "^4.2.1",
+        "vue-template-compiler": "^2.6.10",
+        "vue-toast-notification": "^0.6.1"
     }
 }
