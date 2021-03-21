@@ -1,18 +1,16 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+// Route::get('/', HomeController::class)->name('home');
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('test', function () {
+    $arr1 = [2, 4, 6, 8];
+    $arr2 = [1, 2, 3, 4];
+    dd(array_diff($arr1, $arr2), array_diff($arr2, $arr1));
+});
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/{any}', HomeController::class)->where('any', '.*');
 });
