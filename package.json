@@ -13,6 +13,7 @@
         "@fortawesome/fontawesome-free": "^5.15.3",
         "axios": "^0.21",
         "bootstrap": "^4.0.0",
+        "chart.js": "^2.9.4",
         "jquery": "^3.2",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
@@ -27,5 +28,8 @@
         "vue-sweetalert2": "^4.2.1",
         "vue-template-compiler": "^2.6.10",
         "vue-toast-notification": "^0.6.1"
+    },
+    "dependencies": {
+        "update": "^0.7.4"
     }
 }

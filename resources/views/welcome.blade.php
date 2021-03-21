@@ -1,6 +1,6 @@
 <x-app-layout>
 
-<div class="container">
+<div class="container-fluid">
     <app></app>
 </div>
 

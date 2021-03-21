@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\SupplierController;
@@ -11,6 +12,10 @@ Route::post('login', [AuthController::class, 'login'])->name('login');
 Route::post('register', [AuthController::class, 'register'])->name('register');
 
 Route::middleware(['auth:sanctum'])->group(function () {
+    // Dashboard
+    Route::get('/', DashboardController::class)->name('dashboard');
+
+    // Protected auth routes
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('profile', [AuthController::class, 'profile'])->name('profile');
     Route::patch('profile/update', [AuthController::class, 'update'])->name('profile.update');

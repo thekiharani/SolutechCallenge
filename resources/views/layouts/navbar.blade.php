@@ -11,6 +11,10 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
                  @auth
+                     <li class="nav-item">
+                        <router-link class="nav-link"  to="/">{{ __('Dashboard') }}</router-link>
+                    </li>
+
                     <li class="nav-item">
                         <router-link class="nav-link"  to="products">{{ __('Products') }}</router-link>
                     </li>
