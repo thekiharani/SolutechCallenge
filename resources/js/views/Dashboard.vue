@@ -37,7 +37,10 @@
                         <div class="card-body">
                             <i class="fas fa-chart-line fa-5x" aria-hidden="true"></i>
                             <h5 class="my-3">{{ dashboardData.productCount }} <small>Listed Products</small></h5>
-                            <router-link to="products" class="btn btn-primary btn-block">View More</router-link>
+                            <router-link to="products" class="btn btn-primary btn-block">
+                                View More
+                                <i class="fas fa-arrow-right"></i>
+                            </router-link>
                         </div>
 					 </div>
 				</div>
@@ -47,7 +50,10 @@
                         <div class="card-body">
                             <i class="fas fa-luggage-cart fa-5x" aria-hidden="true"></i>
                             <h5 class="my-3">{{ dashboardData.supplierCount }} <small>Listed Suppliers</small></h5>
-                            <router-link to="suppliers" class="btn btn-primary btn-block">View More</router-link>
+                            <router-link to="suppliers" class="btn btn-primary btn-block">
+                                View More
+                                <i class="fas fa-arrow-right"></i>
+                            </router-link>
                         </div>
 					 </div>
 				</div>
@@ -56,8 +62,11 @@
 					<div class="card text-center">
                         <div class="card-body">
                             <i class="fas fa-cart-arrow-down fa-5x" aria-hidden="true"></i>
-                            <h5 class="my-3">{{ dashboardData.orderCount }} <small>Orders Placed</small></h5>
-                            <router-link to="orders" class="btn btn-primary btn-block">View More</router-link>
+                            <h5 class="my-3">{{ dashboardData.orderCount }} <small>Orders Processed</small></h5>
+                            <router-link to="orders" class="btn btn-primary btn-block">
+                                View More
+                                <i class="fas fa-arrow-right"></i>
+                            </router-link>
                         </div>
 					 </div>
 				</div>

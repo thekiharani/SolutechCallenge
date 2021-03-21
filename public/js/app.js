@@ -42491,7 +42491,12 @@ var render = function() {
                     staticClass: "btn btn-primary btn-block",
                     attrs: { to: "products" }
                   },
-                  [_vm._v("View More")]
+                  [
+                    _vm._v(
+                      "\n                                View More\n                                "
+                    ),
+                    _c("i", { staticClass: "fas fa-arrow-right" })
+                  ]
                 )
               ],
               1
@@ -42521,7 +42526,12 @@ var render = function() {
                     staticClass: "btn btn-primary btn-block",
                     attrs: { to: "suppliers" }
                   },
-                  [_vm._v("View More")]
+                  [
+                    _vm._v(
+                      "\n                                View More\n                                "
+                    ),
+                    _c("i", { staticClass: "fas fa-arrow-right" })
+                  ]
                 )
               ],
               1
@@ -42542,7 +42552,7 @@ var render = function() {
                 _vm._v(" "),
                 _c("h5", { staticClass: "my-3" }, [
                   _vm._v(_vm._s(_vm.dashboardData.orderCount) + " "),
-                  _c("small", [_vm._v("Orders Placed")])
+                  _c("small", [_vm._v("Orders Processed")])
                 ]),
                 _vm._v(" "),
                 _c(
@@ -42551,7 +42561,12 @@ var render = function() {
                     staticClass: "btn btn-primary btn-block",
                     attrs: { to: "orders" }
                   },
-                  [_vm._v("View More")]
+                  [
+                    _vm._v(
+                      "\n                                View More\n                                "
+                    ),
+                    _c("i", { staticClass: "fas fa-arrow-right" })
+                  ]
                 )
               ],
               1
@@ -42863,7 +42878,9 @@ var render = function() {
                           }
                         },
                         [
-                          _vm._v("\n                                Create "),
+                          _vm._v(
+                            "\n                                Place Order "
+                          ),
                           _c("i", { staticClass: "fas fa-check-circle" })
                         ]
                       )

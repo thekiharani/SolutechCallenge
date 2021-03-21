@@ -238,7 +238,7 @@
                             </span>
                             <span v-else>
                                 <button type="button" class="btn btn-primary" @click.prevent="storeOrder">
-                                    Create <i class="fas fa-check-circle"></i>
+                                    Place Order <i class="fas fa-check-circle"></i>
                                 </button>
                             </span>
                         </div>
